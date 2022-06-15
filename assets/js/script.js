@@ -66,6 +66,8 @@ function auditTask(taskEl) {
   } else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   };
+
+  console.log(taskEl);
 }
 
 // task description was clicked
@@ -301,4 +303,10 @@ $("#trash").droppable({
 // load tasks for the first time
 loadTasks();
 
-
+// automatically audit tasks when app window is left open
+setInterval(function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+  // execute this every 30 minutes
+}, (1000 * 60) * 30));
